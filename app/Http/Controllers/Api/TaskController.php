@@ -60,7 +60,12 @@ class TaskController extends Controller
         $data = $request->validated();
 
         $task = Task::create($data);
-        $mail = $task->email;
+        if($task->email === ''){
+            $mail = 'example@mail.com';
+        } else {
+            $mail = $task->email;
+        }
+        
         if ($task->prioridad === 'alta' && !empty($task->email)) {
             Notification::route('mail', $mail)
                 ->notify(new TaskPriorityNotification($task));

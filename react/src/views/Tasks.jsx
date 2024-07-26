@@ -35,11 +35,11 @@ export default function Tasks() {
                     page: currentPage,
                     estado: estadoFilter,
                     prioridad: prioridadFilter,
-                    perPage: 10, // Number of items per page
+                    perPage: 10,
                 },
             });
             setLoading(false);
-            setTasks(response.data.data); // Assuming Laravel pagination data structure
+            setTasks(response.data.data);
             setTotalPages(response.data.last_page);
         } catch (error) {
             setLoading(false);
@@ -53,7 +53,6 @@ export default function Tasks() {
 
     const handleEstadoFilterChange = (event) => {
         setEstadoFilter(event.target.value);
-        //setPrioridadFilter('');
         if(event.target.value == "Todos"){
             setPrioridadFilter('');
         }
@@ -62,13 +61,20 @@ export default function Tasks() {
 
     const handlePrioridadFilterChange = (event) => {
         setPrioridadFilter(event.target.value);
-        //setEstadoFilter('');
         if(event.target.value == "Todas"){
             setEstadoFilter('');
         }
         setCurrentPage(1);
     };
 
+    const formatDate = (dateString) => {
+        const date = new Date(dateString);
+        return date.toLocaleDateString('es-ES', { 
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit'
+        });
+    };
     return (
         <div>
             <div
@@ -84,6 +90,40 @@ export default function Tasks() {
                 </Link>
             </div>
             <div className="card animated fadeInDown">
+                {/* Filters */}
+
+                <div  className="dropdown">
+                    <label>
+                        Estado:
+                        <select
+                        className="dropdown-menu"
+                            value={estadoFilter}
+                            onChange={handleEstadoFilterChange}
+                        >
+                            <option value="">Todos</option>
+
+                            <option value="pendiente">Pendiente</option>
+
+                            <option value="en progreso">En Progreso</option>
+
+                            <option value="completado">Completada</option>
+                        </select>
+                    </label>
+
+                    <label>
+                        Prioridad:
+                        <select
+                        className="dropdown-menu2"
+                            value={prioridadFilter}
+                            onChange={handlePrioridadFilterChange}
+                        >
+                            <option value="">Todas</option>
+                            <option value="alta">Alta</option>
+                            <option value="media">Media</option>
+                            <option value="baja">Baja</option>
+                        </select>
+                    </label>
+                </div>
                 <table>
                     <thead>
                         <tr>
@@ -110,7 +150,7 @@ export default function Tasks() {
                                 <tr key={task.id}>
                                     <td>{task.titulo}</td>
                                     <td>{task.descripcion}</td>
-                                    <td>{task.fecha}</td>
+                                    <td>{formatDate(task.fecha)}</td>
                                     <td>{task.estado}</td>
                                     <td>{task.prioridad}</td>
                                     <td>
@@ -137,47 +177,14 @@ export default function Tasks() {
                 <div>
                     {Array.from({ length: totalPages }, (_, index) => (
                         <button
+                            className="btn-pagination"
                             key={index + 1}
                             onClick={() => handlePageChange(index + 1)}
                         >
                             {index + 1}
                         </button>
+                        
                     ))}
-                </div>
-                {/* Filters */}
-
-                <div>
-                    <label>
-                        Estado:
-                        <select
-                            value={estadoFilter}
-                            onChange={handleEstadoFilterChange}
-                        >
-                            <option value="">Todos</option>
-
-                            <option value="pendiente">Pendiente</option>
-
-                            <option value="en progreso">En Progreso</option>
-
-                            <option value="completado">Completada</option>
-                        </select>
-                    </label>
-
-                    <label>
-                        Prioridad:
-                        <select
-                            value={prioridadFilter}
-                            onChange={handlePrioridadFilterChange}
-                        >
-                            <option value="">Todas</option>
-
-                            <option value="alta">Alta</option>
-
-                            <option value="media">Media</option>
-
-                            <option value="baja">Baja</option>
-                        </select>
-                    </label>
                 </div>
             </div>
         </div>

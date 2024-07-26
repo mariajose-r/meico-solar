@@ -29,15 +29,12 @@ export default function DefaultLayout() {
 
     return (
         <div id="defaultLayout">
-            <aside>
-                <Link to="/dashboard">Dashboard</Link>
-                <Link to="/tasks">Tareas</Link>
-            </aside>
+            
             <div className="content">
                 <header>
-                    <div>Header</div>
+                    <div>Bienvenido, {user.name}</div>
                     <div>
-                        {user.name}
+                        
                         <a href="#" onClick={onLogout} className="btn-logout">
                             Cerrar Sesión
                         </a>

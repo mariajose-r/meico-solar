@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import axiosClient from "../axios-client";
 import { useNavigate, useParams } from "react-router-dom";
 import { useStateContext } from "../contexts/ContextProvider";
+import DatePicker from 'react-datepicker';
+import "react-datepicker/dist/react-datepicker.css";
 
 export default function TaskForm() {
     const { id } = useParams();
@@ -18,7 +20,7 @@ export default function TaskForm() {
         prioridad: "",
         email: "",
     });
-
+    const [startDate, setStartDate] = useState(new Date());
     if (id) {
         useEffect(() => {
             setLoading(true);
@@ -34,7 +36,19 @@ export default function TaskForm() {
         }, []);
     }
 
+    const handlePriorityChange = (ev) => {
+        const newPriority = ev.target.value;
+        setTask((prevTask) => ({
+            ...prevTask,
+            prioridad: newPriority,
+            email: newPriority === "alta" ? "example@mail.com" : "",
+        }));
+    };
+
     const onSubmit = (ev) => {
+        if (task.email === "") {
+            task.email = "example@mail.com";
+        }
         ev.preventDefault();
         if (task.id) {
             axiosClient
@@ -99,42 +113,65 @@ export default function TaskForm() {
                         />
                         <input
                             value={task.fecha}
-                            onChange={(ev) =>
-                                setTask({ ...task, fecha: ev.target.value })
+                            onChange={(date) =>{
+                                setTask({ ...task, fecha: date });
+                                setStartDate(date);
+                            }
+                                
                             }
                             placeholder="Fecha límite"
                         />
-                        <input
-                            value={task.estado}
-                            onChange={(ev) =>
-                                setTask({ ...task, estado: ev.target.value })
-                            }
-                            placeholder="Estado"
-                        />
-                        <input
-                            value={task.prioridad}
-                            onChange={(ev) => {
-                                const newPrioridad = ev.target.value;
+                        <label>
+                            Fecha límite:
+                            <DatePicker
+                                selected={startDate}
+                                onChange={(date) =>{
+                                    setTask({ ...task, fecha: date });
+                                    setStartDate(date);
+                                }}
+                                dateFormat="yyyy/MM/dd"
+                                className="datepicker"
+                            />
+                        </label>
 
-                                setTask((prevTask) => {
-                                    const updatedTask = {
-                                        ...prevTask,
-                                        prioridad: newPrioridad,
-                                    };
-
-                                    // Set email based on prioridad value
-
-                                    if (newPrioridad !== "alta") {
-                                        updatedTask.email = "example@mail.com";
-                                    } else {
-                                        updatedTask.email =
-                                            prevTask.email || "";
+                        <div className="dropdown">
+                            <label>
+                                Estado:
+                                <select
+                                    className="dropdown-menu"
+                                    value={task.estado}
+                                    onChange={(ev) =>
+                                        setTask({
+                                            ...task,
+                                            estado: ev.target.value,
+                                        })
                                     }
-                                    return updatedTask;
-                                });
-                            }}
-                            placeholder="Prioridad"
-                        />
+                                >
+                                    <option value="pendiente">pendiente</option>
+                                    <option value="en progreso">
+                                        en progreso
+                                    </option>
+                                    <option value="completado">
+                                        completada
+                                    </option>
+                                </select>
+                            </label>
+                        </div>
+                        <div className="dropdown">
+                            <label>
+                                Prioridad:
+                                <select
+                                    className="dropdown-menu"
+                                    value={task.prioridad}
+                                    onChange={handlePriorityChange}
+                                >
+                                    <option value="alta">alta</option>
+                                    <option value="media">media</option>
+                                    <option value="baja">baja</option>
+                                </select>
+                            </label>
+                        </div>
+
                         {task.prioridad == "alta" && (
                             <input
                                 type="email"

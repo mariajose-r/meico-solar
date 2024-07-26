@@ -3,11 +3,22 @@
 * {
     box-sizing: border-box;
 }
-html, body, #root, #defaultLayout, #guestLayout {
+
+html,
+body,
+#root,
+#defaultLayout,
+#guestLayout {
     min-height: 100vh;
 }
 
-h1, h2, h3, h4, h5, h6, p {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
     margin: 0;
 }
 
@@ -59,25 +70,30 @@ input:focus {
 
 .btn-add,
 .btn-edit,
-.btn-delete{
+.btn-delete {
     padding: 0.5rem 0.75rem;
     font-size: 14px;
     border-radius: 4px;
 }
+
 .btn-add {
     background-color: #00a762;
 }
+
 .btn-delete {
     background-color: #b72424;
 }
 
 .btn-logout {
     text-decoration: none;
+    font-weight: 800;
     padding: 0.75rem 1.5rem;
-    color: #212121;
+    color: white;
     transition: all 0.3s;
     border-radius: 6px;
+    cursor: pointer;
 }
+
 .btn-logout:hover {
     background-color: rgba(0, 0, 0, 0.1);
 }
@@ -98,16 +114,54 @@ table {
     border-collapse: collapse;
 }
 
-table > thead > tr > th {
+table>thead>tr>th {
     text-align: left;
     padding: 0.5rem 0.5rem;
     background-color: #efefef;
 }
 
-table > tbody > tr > td {
+table>tbody>tr>td {
     padding: 0.5rem 0.5rem;
     border-bottom: 1px solid #efefef;
     white-space: nowrap;
+}
+
+/* Apply to your table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+/* Apply to table cells */
+td {
+    padding: 8px;
+    /* Adjust padding as needed */
+    overflow-wrap: break-word;
+    /* Allows long text to wrap */
+    word-wrap: break-word;
+    /* Ensures long words break */
+    vertical-align: top;
+    /* Aligns content to the top */
+}
+
+/* Specific styles for description column */
+th:nth-child(2),
+td:nth-child(2) {
+    max-width: 200px;
+    /* Adjust as needed */
+    white-space: normal;
+    /* Allows text to wrap */
+}
+
+/* Optional: Apply styles to table headers and rows */
+th {
+    background-color: #f4f4f4;
+    text-align: left;
+    padding: 10px;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
 }
 
 .card {
@@ -188,7 +242,7 @@ table > tbody > tr > td {
     padding: 1rem
 }
 
-#defaultLayout aside > a {
+#defaultLayout aside>a {
     display: block;
     padding: 0.75rem 1rem;
     border-radius: 6px;
@@ -197,7 +251,7 @@ table > tbody > tr > td {
     transition: all 0.2s;
 }
 
-#defaultLayout aside > a:hover {
+#defaultLayout aside>a:hover {
     background-color: rgba(0, 0, 0, 0.2);
 }
 
@@ -208,7 +262,8 @@ table > tbody > tr > td {
 #defaultLayout header {
     height: 80px;
     padding: 2rem 3rem;
-    background-color: white;
+    background-color: #5b08a7;
+    color: white;
     box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
     display: flex;
     justify-content: space-between;
@@ -231,11 +286,55 @@ table > tbody > tr > td {
     animation-name: fadeInDown;
 }
 
+.btn-pagination{
+    font-family: "Roboto", sans-serif;
+    outline: 0;
+    margin: 2px;
+    background: #5a08a7e7;
+    border-radius: 50px;
+    border: 0;
+    text-decoration: none;
+    padding: 15px;
+    color: #FFFFFF;
+    font-size: 16px;
+    -webkit-transition: all 0.3 ease;
+    transition: all 0.3 ease;
+    cursor: pointer;
+}
+
+/* General styles for select elements */
+.dropdown select {
+    appearance: none; /* Removes default browser styling */
+    background: #fff; /* Background color */
+    border: 1px solid #ddd; /* Border color */
+    border-radius: 4px; /* Rounded corners */
+    padding: 8px 12px; /* Padding inside the dropdown */
+    font-size: 16px; /* Font size */
+    color: #333; /* Font color */
+    cursor: pointer; /* Pointer cursor on hover */
+    width: 100%; /* Full width */
+    box-sizing: border-box; /* Includes padding and border in total width */
+}
+
+/* Style for individual labels to ensure consistent layout */
+.dropdown label {
+    display: block; /* Ensures each label takes full width */
+    margin-bottom: 10px; /* Space between dropdowns */
+}
+
+/* Optional: Add a subtle shadow on focus for better visibility */
+.dropdown select:focus {
+    border-color: #007bff; /* Border color on focus */
+    outline: none; /* Remove default focus outline */
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.2); /* Shadow on focus */
+}
+
 @keyframes fadeInDown {
     0% {
         opacity: 0;
         transform: translateY(-20px);
     }
+
     100% {
         opacity: 1;
         transform: translateY(0);

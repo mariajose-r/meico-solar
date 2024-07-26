@@ -10,5 +10,9 @@
         "lodash": "^4.17.19",
         "postcss": "^8.1.14",
         "vite": "^4.0.0"
+    },
+    "dependencies": {
+        "date-fns": "^3.6.0",
+        "react-datepicker": "^7.3.0"
     }
 }
