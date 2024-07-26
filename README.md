@@ -1,3 +1,15 @@
+Asegúrate de tener el entorno configurado correctamente. Necesitas PHP 8.1, Composer y Node.js.
+
+1. Descarga el proyecto (o clónalo usando GIT).
+2. Navega al directorio principal del proyecto usando la terminal.
+3. Ejecuta `composer install`.
+4. Establece la clave de cifrado ejecutando `php artisan key:generate --ansi`.
+5. Ejecuta las migraciones con `php artisan migrate --seed`.
+6. Inicia el servidor local ejecutando `php artisan serve`.
+7. Abre una nueva terminal y navega al directorio de React.
+8. Ejecuta `npm install`.
+9. Ejecuta `npm run dev` para iniciar el servidor Vite para React.
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
