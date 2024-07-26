@@ -111,16 +111,6 @@ export default function TaskForm() {
                             }
                             placeholder="Descripción"
                         />
-                        <input
-                            value={task.fecha}
-                            onChange={(date) =>{
-                                setTask({ ...task, fecha: date });
-                                setStartDate(date);
-                            }
-                                
-                            }
-                            placeholder="Fecha límite"
-                        />
                         <label>
                             Fecha límite:
                             <DatePicker
@@ -165,14 +155,15 @@ export default function TaskForm() {
                                     value={task.prioridad}
                                     onChange={handlePriorityChange}
                                 >
-                                    <option value="alta">alta</option>
-                                    <option value="media">media</option>
                                     <option value="baja">baja</option>
+                                    <option value="media">media</option>
+                                    <option value="alta">alta</option>
+                                    
                                 </select>
                             </label>
                         </div>
 
-                        {task.prioridad == "alta" && (
+                        {task.prioridad == 'alta' && (
                             <input
                                 type="email"
                                 value={task.email}
